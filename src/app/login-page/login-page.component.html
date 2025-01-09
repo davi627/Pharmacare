@@ -1,20 +1,28 @@
 <div class="login-page">
     <div class="left-section">
-        <h1>PHARMACARE</h1>
+      <h1>PHARMACARE</h1>
     </div>
     <div class="right-section">
-        <form>
-            <select name="dropdown" id="dropdown">
-                <option value="Admin">Admin</option>
-                <option value="Customer">Customer</option>
-                <option value="Pharmacist">Pharmacist</option>
-            </select>
-            <label for="email">Email</label>
-            <input type="text" id="email" placeholder="email">
-            <label for="password">Password</label>
-            <input type="text" id="password" placeholder="password">
-            <p>You don't have an account <b (click)="navigateToRegister()">register</b></p>
-            <button>Login</button>
-        </form>
+      <form (ngSubmit)="onSubmit()">
+        <label for="role">Role</label>
+        <select name="role" id="role" [(ngModel)]="role" required>
+          <option value="Admin">Admin</option>
+          <option value="Customer">Customer</option>
+          <option value="Pharmacist">Pharmacist</option>
+        </select>
+  
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="email" [(ngModel)]="email" name="email" required>
+  
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="password" [(ngModel)]="password" name="password" required>
+  
+        <p>You don't have an account? <b (click)="navigateToRegister()">register</b></p>
+        <button type="submit">Login</button>
+  
+        <!-- Display error message -->
+        <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+      </form>
     </div>
-</div>
+  </div>
+  

@@ -1,16 +1,25 @@
 <div class="register">
-    <form action="">
-        <select name="user" id="user">
+    <form (ngSubmit)="onSubmit()">
+        <label for="user">User Type</label>
+        <select name="user" id="user" [(ngModel)]="role" required>
             <option value="Admin">Admin</option>
             <option value="Customer">Customer</option>
             <option value="Pharmacist">Pharmacist</option>
         </select>
-        <label for="">Email</label>
-        <input type="text" placeholder="email">
-        <label for="">Password</label>
-        <input type="text" placeholder="password">
-        <label for="">Confirm Password</label>
-        <input type="text" placeholder="confirm password">
-        <button>Register</button>
+
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="email" [(ngModel)]="email" name="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="password" [(ngModel)]="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="confirm password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+
+        <button type="submit">Register</button>
+
+        <!-- Display error or success messages -->
+        <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+        <p *ngIf="successMessage" style="color: green">{{ successMessage }}</p>
     </form>
 </div>
