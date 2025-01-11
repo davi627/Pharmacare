@@ -3,6 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { UserRouter } from './Routes/Authentication.js'
+import { ProductsRouter } from './Routes/Products.js'
 
 dotenv.config()
 
@@ -16,10 +17,13 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200, 
 }))
+//handling the multer upload
+app.use('/uploads', express.static('uploads'));
 
 
 //Importing routes
 app.use("/Auth",UserRouter)
+app.use('/Products',ProductsRouter)
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log('connected to MONGODB'))

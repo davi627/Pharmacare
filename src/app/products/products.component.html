@@ -1,42 +1,60 @@
 <div class="productts">
-    <!-- Navbar -->
-    <div class="navbar">
-      <button class="add-product-btn" (click)="openPopup()">Add Products</button>
-    </div>
-  
-    <!-- Popup Modal -->
-    <div class="popup-modal" *ngIf="showPopup">
-      <div class="popup-content">
-        <span class="close-btn" (click)="closePopup()">&times;</span>
-        <h2>Add Product</h2>
-        <form (ngSubmit)="submitForm()" #productForm="ngForm">
-          <label for="name">Product Name</label>
-          <input type="text" id="name" name="name" ngModel required>
-  
-          <label for="quantity">Quantity</label>
-          <input type="number" id="quantity" name="quantity" ngModel required>
-  
-          <label for="price">Price</label>
-          <input type="number" id="price" name="price" ngModel required>
-  
-          <label for="batch">Batch Number</label>
-          <input type="text" id="batch" name="batch" ngModel required>
-  
-          <label for="expiry">Expiry Date</label>
-          <input type="date" id="expiry" name="expiry" ngModel required>
-  
-          <label for="discount">Discount</label>
-          <input type="number" id="discount" name="discount" ngModel required>
-  
-          <label for="image">Product Image</label>
-          <input type="file" id="image" name="image" ngModel required>
-  
-          <div class="button-container">
-            <button type="submit" class="submit-btn">Submit</button>
-            <button type="button" class="close-btn" (click)="closePopup()">Close</button>
-          </div>
-        </form>
+  <!-- Navbar -->
+  <div class="navbar">
+    <button class="add-product-btn" (click)="openPopup()">Add Products</button>
+  </div>
+
+  <!-- Product List -->
+  <div class="product-list" *ngIf="products.length > 0">
+    <div class="product-card" *ngFor="let product of products">
+      <img *ngIf="product.image" [src]="'http://localhost:3000/' + product.image" class="product-image">
+      <div class="product-details">
+        <h3>{{ product.name }}</h3>
+        <p>Quantity: {{ product.quantity }}</p>
+        <p>Price: ${{ product.price }}</p>
+        <p>Batch: {{ product.batch }}</p>
+        <p>Expiry: {{ product.expiry }}</p>
+        <p>Discount: {{ product.discount }}%</p>
+      </div>
+      <div class="buttons-container">
+        <button class="update-btn" >Update</button>
+        <button class="delete-btn" >Delete</button>
+        <button class="add-to-cart-btn" >Add to Cart</button>
       </div>
     </div>
   </div>
-  
+
+  <!-- Popup Modal -->
+  <div class="popup-modal" *ngIf="showPopup">
+    <div class="popup-content">
+      <span class="close-btn" (click)="closePopup()">&times;</span>
+      <form #productForm="ngForm" (ngSubmit)="submitForm(productForm)">
+        <label for="name">Product Name</label>
+        <input type="text" id="name" name="name" ngModel required>
+
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" ngModel required>
+
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" ngModel required>
+
+        <label for="batch">Batch Number</label>
+        <input type="text" id="batch" name="batch" ngModel required>
+
+        <label for="expiry">Expiry Date</label>
+        <input type="date" id="expiry" name="expiry" ngModel required>
+
+        <label for="discount">Discount</label>
+        <input type="number" id="discount" name="discount" ngModel required>
+
+        <label for="image">Product Image</label>
+        <input type="file" id="image" name="image" (change)="onImageUpload($event)" required>
+
+        <div class="button-container">
+          <button type="submit" class="submit-btn">Submit</button>
+          <button type="button" class="close-btn" (click)="closePopup()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
