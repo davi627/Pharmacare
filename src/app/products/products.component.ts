@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-products',
@@ -7,32 +8,50 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+  totalQuantity: number = 0; 
+  totalprice: number = 0; 
+
   showPopup: boolean = false;
+  showCart:boolean = false;
   products: any[] = [];
+  cartItems: any[] = [];
   uploadedImage: File | null = null;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
+    this.updateCartSummary();
   }
 
+  // Open product add popup
   openPopup() {
     this.showPopup = true;
   }
 
+  // Close product add popup
   closePopup() {
     this.showPopup = false;
   }
 
+  // Open cart summary popup
+  openCartPopup() {
+    this.showCart = true;    
+  }
+  // Close cart summary popup
+  closeCartPopup() {
+    this.showCart = false;
+  }
+
+  // Fetch all products from the service
   fetchProducts() {
     this.productsService.getAllProducts().subscribe({
       next: (response) => {
         this.products = response;
         console.log('Products fetched successfully:', this.products);
-        if (this.products.length > 0) {
-          console.log('First product image path:', this.products[0].image);
-        }
       },
       error: (error) => {
         console.error('Error fetching products:', error);
@@ -40,6 +59,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  // Handle image upload
   onImageUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -47,11 +67,13 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  // Handle image load error
   handleImageError(event: any) {
     console.error('Image failed to load:', event);
-    event.target.src = 'assets/placeholder-image.png'; // Add a placeholder image in your assets folder
+    event.target.src = 'assets/placeholder-image.png'; // Placeholder image path
   }
 
+  // Submit new product form
   submitForm(form: any) {
     const formData = new FormData();
     formData.append('name', form.value.name);
@@ -76,4 +98,33 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+
+  // Add product to cart
+  addToCart(product: any): void {
+    this.cartService.addToCart(product);
+    this.updateCartSummary();
+  }
+
+  // Remove product from cart
+  removeFromCart(productId: any): void {
+    this.cartService.removeFromCart(productId);
+    this.updateCartSummary();
+  }
+
+  // Update cart summary (total quantity and price)
+  updateCartSummary(): void {
+    const cartItems = this.cartService.getCartItems();
+    this.cartItems = cartItems;
+    this.totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    this.totalprice = this.cartService.getTotalPrice();
+  }
+
+  // Checkout action
+  checkout(): void {
+    this.cartService.clearCart();
+    this.updateCartSummary();
+    this.closeCartPopup();
+  }
+
+
 }

@@ -2,6 +2,10 @@
   <!-- Navbar -->
   <div class="navbar">
     <button class="add-product-btn" (click)="openPopup()">Add Products</button>
+    <div class="cart-icon" (click)="openCartPopup() " >
+      🛒
+      <span *ngIf="totalQuantity > 0" class="cart-badge">{{ totalQuantity }}</span>
+    </div>
   </div>
 
   <!-- Product List -->
@@ -17,11 +21,28 @@
         <p>Discount: {{ product.discount }}%</p>
       </div>
       <div class="buttons-container">
-        <button class="update-btn" >Update</button>
-        <button class="delete-btn" >Delete</button>
-        <button class="add-to-cart-btn" >Add to Cart</button>
+        <button class="update-btn">Update</button>
+        <button class="delete-btn">Delete</button>
+        <button class="add-to-cart-btn" (click)="addToCart(product)">Add to Cart</button>
       </div>
     </div>
+  </div>
+
+  <!-- Cart Popup -->
+  <div class="cart-popup" *ngIf="showCart">
+    <h3>Cart Summary</h3>
+    <div *ngFor="let cartProduct of cartItems">
+      <div class="cart-item">
+        <p>{{ cartProduct.name }} - ${{ cartProduct.price }}</p>
+        <button class="remove-btn" (click)="removeFromCart(cartProduct.id)">Remove</button>
+        
+      </div>
+      
+    </div>
+    <p>Total Quantity: {{ totalQuantity }}</p>
+    <p>Total Price: ${{ totalprice }}</p>
+    <button class="checkout-btn" (click)="checkout()">Checkout</button>
+    <button (click)="closeCartPopup()" class="close-btn">Close</button>
   </div>
 
   <!-- Popup Modal -->
