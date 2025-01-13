@@ -33,18 +33,21 @@
     <h3>Cart Summary</h3>
     <div *ngFor="let cartProduct of cartItems">
       <div class="cart-item">
-        <p>{{ cartProduct.name }} - ${{ cartProduct.price }}</p>
-        <button class="remove-btn" (click)="removeFromCart(cartProduct.id)">Remove</button>
-        
+        <div class="cart-item-details">
+          <p>{{ cartProduct.name }}</p>
+          <p>Batch: {{ cartProduct.batch }}</p>
+          <p>Price: ${{ cartProduct.price }} (Quantity: {{ cartProduct.quantity }})</p>
+          <p>Subtotal: ${{ cartProduct.price * cartProduct.quantity }}</p>
+        </div>
+        <button class="remove-btn" (click)="removeFromCart(cartProduct.id, cartProduct.batch)">Remove</button>
       </div>
-      
     </div>
     <p>Total Quantity: {{ totalQuantity }}</p>
     <p>Total Price: ${{ totalprice }}</p>
     <button class="checkout-btn" (click)="checkout()">Checkout</button>
-    <button (click)="closeCartPopup()" class="close-btn">Close</button>
+    <button class="close-btn" (click)="closeCartPopup()">Close</button>
   </div>
-
+  
   <!-- Popup Modal -->
   <div class="popup-modal" *ngIf="showPopup">
     <div class="popup-content">

@@ -21,6 +21,7 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
     private cartService: CartService
   ) {}
+  
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -106,17 +107,16 @@ export class ProductsComponent implements OnInit {
   }
 
   // Remove product from cart
-  removeFromCart(productId: any): void {
-    this.cartService.removeFromCart(productId);
+  removeFromCart(productId: number, batch: string): void {
+    this.cartService.removeFromCart(productId, batch);
     this.updateCartSummary();
   }
 
   // Update cart summary (total quantity and price)
   updateCartSummary(): void {
-    const cartItems = this.cartService.getCartItems();
-    this.cartItems = cartItems;
-    this.totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    this.totalprice = this.cartService.getTotalPrice();
+    this.cartItems = this.cartService.getCartItems(); // Fetch all items in the cart
+    this.totalQuantity = this.cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    this.totalprice = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
   // Checkout action
