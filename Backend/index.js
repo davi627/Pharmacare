@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import { UserRouter } from './Routes/Authentication.js'
 import { ProductsRouter } from './Routes/Products.js'
 import { mpesaRoutes } from './Routes/Mpesa.js'
+import { transactionRoutes } from './Routes/Transaction.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use('/uploads', express.static('uploads'));
 app.use("/Auth",UserRouter)
 app.use('/Products',ProductsRouter)
 app.use('/mpesa', mpesaRoutes)
+app.use('/transactions', transactionRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log('connected to MONGODB'))
