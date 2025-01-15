@@ -232,6 +232,31 @@ body {
 .checkout-btn:hover {
   background-color: orange;
 }
+.payment-popup,
+.mpesa-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.payment-popup button,
+.mpesa-popup button {
+  margin: 10px;
+}
+
+.payment-popup input,
+.mpesa-popup input {
+  margin-bottom: 15px;
+  padding: 8px;
+  width: 100%;
+}
+
 
 /* Popup Modal Styles */
 .popup-modal {

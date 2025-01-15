@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
 
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CartService {
   private cart: any[] = [];
-  private apiUrl = 'http://localhost:3000/mpesa/transactions';
+  
 
   constructor( private http:HttpClient) { }
 
@@ -52,9 +52,7 @@ export class CartService {
       console.log('Product removed from cart:', this.cart);
     }
   }
-  recordTransaction(transaction: any): Observable<any> {
-    return this.http.post(this.apiUrl, transaction);
-  }
+ 
   getCartItems(): any[] {
     return this.cart;
   }

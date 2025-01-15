@@ -1,6 +1,5 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
-import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken';
 import { User } from '../Models/Authentication.js'
 const app = express()
@@ -33,7 +32,13 @@ router.post('/Register', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ email, password: hashedPassword, confirmPassword, role });
+        const user = new User(
+               {
+                 email,
+                  password: hashedPassword,
+                   confirmPassword,
+                    role 
+                });
 
         // Log the user object before saving to verify all fields
         console.log('Saving user:', user);

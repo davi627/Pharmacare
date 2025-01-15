@@ -47,6 +47,23 @@
     <button class="checkout-btn" (click)="checkout()">Checkout</button>
     <button class="close-btn" (click)="closeCartPopup()">Close</button>
   </div>
+
+  <!-- Payment Popup -->
+<div class="payment-popup" *ngIf="showPaymentPopup">
+  <h3>Select Payment Method</h3>
+  <button class="payment-btn" (click)="choosePayment('cash')">Cash</button>
+  <button class="payment-btn" (click)="choosePayment('mpesa')">M-Pesa</button>
+</div>
+
+<!-- M-Pesa Phone Number Popup -->
+<div class="mpesa-popup" *ngIf="showMpesaPopup">
+  <h3>Enter M-Pesa Phone Number</h3>
+  <input type="tel" [(ngModel)]="phoneNumber" placeholder="Enter phone number" />
+  <button class="submit-btn" (click)="processMpesaPayment()">Pay</button>
+  <button class="close-btn" (click)="closeMpesaPopup()">Cancel</button>
+</div>
+
+  
   
   <!-- Popup Modal -->
   <div class="popup-modal" *ngIf="showPopup">

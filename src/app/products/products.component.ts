@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { CartService } from '../cart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
@@ -12,42 +13,41 @@ export class ProductsComponent implements OnInit {
   totalprice: number = 0; 
 
   showPopup: boolean = false;
-  showCart:boolean = false;
+  showCart: boolean = false;
   products: any[] = [];
   cartItems: any[] = [];
   uploadedImage: File | null = null;
+  showPaymentPopup = false;
+  showMpesaPopup = false;
+  phoneNumber = '';
 
   constructor(
     private productsService: ProductsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private http: HttpClient
   ) {}
-  
 
   ngOnInit(): void {
     this.fetchProducts();
     this.updateCartSummary();
   }
 
-  // Open product add popup
   openPopup() {
     this.showPopup = true;
   }
 
-  // Close product add popup
   closePopup() {
     this.showPopup = false;
   }
 
-  // Open cart summary popup
   openCartPopup() {
     this.showCart = true;    
   }
-  // Close cart summary popup
+
   closeCartPopup() {
     this.showCart = false;
   }
 
-  // Fetch all products from the service
   fetchProducts() {
     this.productsService.getAllProducts().subscribe({
       next: (response) => {
@@ -60,7 +60,6 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  // Handle image upload
   onImageUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -68,13 +67,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  // Handle image load error
   handleImageError(event: any) {
     console.error('Image failed to load:', event);
-    event.target.src = 'assets/placeholder-image.png'; // Placeholder image path
+    event.target.src = 'assets/placeholder-image.png';
   }
 
-  // Submit new product form
   submitForm(form: any) {
     const formData = new FormData();
     formData.append('name', form.value.name);
@@ -100,31 +97,81 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  // Add product to cart
   addToCart(product: any): void {
     this.cartService.addToCart(product);
     this.updateCartSummary();
   }
 
-  // Remove product from cart
   removeFromCart(productId: number, batch: string): void {
     this.cartService.removeFromCart(productId, batch);
     this.updateCartSummary();
   }
 
-  // Update cart summary (total quantity and price)
   updateCartSummary(): void {
-    this.cartItems = this.cartService.getCartItems(); // Fetch all items in the cart
+    this.cartItems = this.cartService.getCartItems();
     this.totalQuantity = this.cartItems.reduce((sum, item) => sum + item.quantity, 0);
     this.totalprice = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
-  // Checkout action
-  checkout(): void {
-    this.cartService.clearCart();
-    this.updateCartSummary();
-    this.closeCartPopup();
+  checkout() {
+    this.showPaymentPopup = true;
   }
 
+  choosePayment(method: string) {
+    this.showPaymentPopup = false;
 
+    if (method === 'mpesa') {
+      this.showMpesaPopup = true;
+    } else {
+      // Record cash payment transaction
+      this.recordTransaction('cash', {});
+      alert('Cash payment Done!');
+    }
+  }
+
+  closeMpesaPopup() {
+    this.showMpesaPopup = false;
+  }
+
+  processMpesaPayment() {
+    if (!this.phoneNumber) {
+      alert('Please enter a phone number!');
+      return;
+    }
+
+    const paymentData = {
+      amount: this.totalprice,
+      phoneNumber: this.phoneNumber,
+    };
+
+    this.http.post('http://localhost:3000/mpesa/stkpush', paymentData).subscribe(
+      (response: any) => {
+        alert('Payment request sent. Please check your phone.');
+        this.recordTransaction('mpesa', { phoneNumber: this.phoneNumber });
+        this.showMpesaPopup = false;
+      },
+      (error) => {
+        console.error('Payment error:', error);
+        alert('Failed to process payment.');
+      }
+    );
+  }
+
+  recordTransaction(method: string, paymentDetails: any) {
+    const transactionData = {
+      method,
+      amount: this.totalprice,
+      items: this.cartItems,
+      paymentDetails: method === 'mpesa' ? paymentDetails : null,
+    };
+
+    this.http.post('http://localhost:3000/transactions/transactions', transactionData).subscribe(
+      (response: any) => {
+        console.log('Transaction recorded successfully:', response);
+      },
+      (error) => {
+        console.error('Error recording transaction:', error);
+      }
+    );
+  }
 }
