@@ -32,7 +32,7 @@ const upload = multer({
 
 // Posting the products
 router.post('/Products', upload.single('image'), async (req, res) => {
-    console.log(req.file); // Add this to log the file data
+    
     try {
         const { name, price, quantity, batch, expiry, discount } = req.body;
         const image = req.file ? req.file.path : null;
