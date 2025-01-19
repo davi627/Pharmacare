@@ -1,1 +1,108 @@
-<p>customer-page works!</p>
+<div class="Customers-page">
+    <div class="navbar">
+      <div class="profile-icon">
+        <i class="fas fa-user-circle"></i>
+      </div>
+      <div class="list">
+        <ul>
+          <li (click)="showForm('booking')">Book Appointments</li>
+          <li (click)="showForm('upload')">Upload Prescriptions</li>
+          <li (click)="showForm('chats')">Chats</li>
+          <li (click)="showForm('appointments')">Appointments</li>
+        </ul>
+        <div class="settings-icon">
+          <i class="fas fa-cog"></i>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Booking Form -->
+    <div *ngIf="currentForm === 'booking'" id="booking-form">
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+  
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required />
+  
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+  
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required />
+  
+        <label for="reason">Reason:</label>
+        <textarea id="reason" name="reason" rows="4" required></textarea>
+  
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div id="chats-section" *ngIf="currentForm==='chats'">
+        <div class="chat-header">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <h2>Technician Support</h2>
+                <p>Online</p>
+            </div>
+        </div>
+        
+        <div class="chat-box">
+            <div class="chat-message admin">
+                Hello! How can I help you today?
+                <div class="timestamp">10:30 AM</div>
+            </div>
+            <div class="chat-message user">
+                I need help with booking an appointment
+                <div class="timestamp">10:31 AM</div>
+            </div>
+            
+        </div>
+        
+        <div class="typing-indicator">
+            Agent is typing...
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" placeholder="Type a message...">
+            <button>
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Upload Prescriptions Form -->
+    <div *ngIf="currentForm === 'upload'" id="upload-prescription-form">
+      <form>
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" name="patientName" placeholder="Enter patient's name" required />
+  
+        <label for="patientAge">Patient Age:</label>
+        <input type="number" id="patientAge" name="patientAge" placeholder="Enter patient's age" required />
+  
+        <label for="doctorName">Doctor's Name:</label>
+        <input type="text" id="doctorName" name="doctorName" placeholder="Enter doctor's name" />
+  
+        <label for="prescriptionDate">Date of Prescription:</label>
+        <input type="date" id="prescriptionDate" name="prescriptionDate" required />
+  
+        <label for="fileUpload">Upload Prescription:</label>
+        <input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.jpg,.png" required />
+  
+        <label for="additionalNotes">Additional Notes:</label>
+        <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Provide any additional details..."></textarea>
+  
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+
+  
+    <div *ngIf="currentForm === 'appointments'" id="appointments-section">
+      <p>Appointments Section Content</p>
+    </div>
+  </div>
+  
