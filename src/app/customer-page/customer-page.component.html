@@ -18,28 +18,29 @@
   
     <!-- Booking Form -->
     <div *ngIf="currentForm === 'booking'" id="booking-form">
-      <form>
+      <form (ngSubmit)="submitForm()">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required />
-  
+        <input type="text" id="name" [(ngModel)]="appointment.name" name="name" required />
+    
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required />
-  
+        <input type="number" id="age" [(ngModel)]="appointment.age" name="age" required />
+    
         <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+        <select id="gender" [(ngModel)]="appointment.gender" name="gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
         </select>
-  
+    
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required />
-  
+        <input type="date" id="date" [(ngModel)]="appointment.date" name="date" required />
+    
         <label for="reason">Reason:</label>
-        <textarea id="reason" name="reason" rows="4" required></textarea>
-  
+        <textarea id="reason" [(ngModel)]="appointment.reason" name="reason" rows="4" required></textarea>
+    
         <button type="submit">Submit</button>
       </form>
     </div>
+    
     <div id="chats-section" *ngIf="currentForm==='chats'">
         <div class="chat-header">
             <div class="user-avatar">
@@ -75,25 +76,26 @@
         </div>
     </div>
     <!-- Upload Prescriptions Form -->
-    <div *ngIf="currentForm === 'upload'" id="upload-prescription-form">
-      <form>
+    <div *ngIf="currentForm === 'upload'" id="upload-prescription-form" >
+      <form (ngSubmit)="submitPrescription()">
         <label for="patientName">Patient Name:</label>
-        <input type="text" id="patientName" name="patientName" placeholder="Enter patient's name" required />
+        <input type="text" id="patientNames" name="patientsName" [(ngModel)]="prescription.patientsName" placeholder="Enter patient's name" required />
   
         <label for="patientAge">Patient Age:</label>
-        <input type="number" id="patientAge" name="patientAge" placeholder="Enter patient's age" required />
+        <input type="number" id="patientAge" name="patientAge" [(ngModel)]="prescription.age" placeholder="Enter patient's age" required />
   
         <label for="doctorName">Doctor's Name:</label>
-        <input type="text" id="doctorName" name="doctorName" placeholder="Enter doctor's name" />
+        <input type="text" id="doctorName" name="doctorName" [(ngModel)]="prescription.doctorName" placeholder="Enter doctor's name" />
   
         <label for="prescriptionDate">Date of Prescription:</label>
-        <input type="date" id="prescriptionDate" name="prescriptionDate" required />
+        <input type="date" id="date" name="date"  [(ngModel)]="prescription.date"required />
   
         <label for="fileUpload">Upload Prescription:</label>
-        <input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.jpg,.png" required />
+        <input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.jpg,.png" (change)="onFileSelected($event)" required />
+
   
         <label for="additionalNotes">Additional Notes:</label>
-        <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Provide any additional details..."></textarea>
+        <textarea id="notes" name="notes" rows="4" [(ngModel)]="prescription.notes" placeholder="Provide any additional details..."></textarea>
   
         <button type="submit">Upload</button>
       </form>
