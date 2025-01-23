@@ -7,7 +7,6 @@
         <ul>
           <li (click)="showForm('booking')">Book Appointments</li>
           <li (click)="showForm('upload')">Upload Prescriptions</li>
-          <li (click)="showForm('chats')">Chats</li>
           <li (click)="showForm('appointments')">Appointments</li>
         </ul>
         <div class="settings-icon">
@@ -41,40 +40,7 @@
       </form>
     </div>
     
-    <div id="chats-section" *ngIf="currentForm==='chats'">
-        <div class="chat-header">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="user-info">
-                <h2>Technician Support</h2>
-                <p>Online</p>
-            </div>
-        </div>
-        
-        <div class="chat-box">
-            <div class="chat-message admin">
-                Hello! How can I help you today?
-                <div class="timestamp">10:30 AM</div>
-            </div>
-            <div class="chat-message user">
-                I need help with booking an appointment
-                <div class="timestamp">10:31 AM</div>
-            </div>
-            
-        </div>
-        
-        <div class="typing-indicator">
-            Agent is typing...
-        </div>
-        
-        <div class="chat-input">
-            <input type="text" placeholder="Type a message...">
-            <button>
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
+
     <!-- Upload Prescriptions Form -->
     <div *ngIf="currentForm === 'upload'" id="upload-prescription-form" >
       <form (ngSubmit)="submitPrescription()">

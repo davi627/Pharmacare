@@ -8,7 +8,7 @@ import { PrescriptionsService } from '../prescriptions.service';
   styleUrls: ['./customer-page.component.css']
 })
 export class CustomerPageComponent {
-  currentForm: string = 'chats';
+  currentForm: string = 'booking';
   newMessage: string = '';
   messages: { type: string, text: string }[] = [];
   selectedFile: File | null = null; 
@@ -62,7 +62,7 @@ export class CustomerPageComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0]; // Capture the selected file
+      this.selectedFile = input.files[0]; // Here i am capturing the selected file
       console.log('File selected:', this.selectedFile);
     }
   }
