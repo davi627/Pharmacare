@@ -6,6 +6,8 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { PharmacistPageComponent } from './pharmacist-page/pharmacist-page.component';
 import { CustomerPageComponent } from './customer-page/customer-page.component';
 import { ProductsComponent } from './products/products.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path:'admin',component:AdminPageComponent},
   {path:'pharmacist',component:PharmacistPageComponent},
   {path:'customer',component:CustomerPageComponent},
-  {path:'products',component:ProductsComponent}
+  {path:'products',component:ProductsComponent},
+  {path:'appointments',component:AppointmentsComponent},
+  {path:'prescriptions',component:PrescriptionsComponent}
 ];
 
 @NgModule({

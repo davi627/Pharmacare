@@ -1,0 +1,71 @@
+<div class="prescriptions-container">
+  <h2>Patient Prescriptions</h2>
+  
+  <div *ngIf="prescriptions.length === 0" class="no-prescriptions">
+    No prescriptions available
+  </div>
+  
+  <div class="prescription-grid">
+    <div *ngFor="let prescription of prescriptions" 
+         class="prescription-card"
+         (click)="openPrescriptionDetails(prescription)">
+      <div class="prescription-header">
+        <div class="patient-info">
+          <h3>{{ prescription.patientsName }}</h3>
+          <span class="prescription-date">{{ prescription.date | date:'mediumDate' }}</span>
+        </div>
+        <div *ngIf="prescription.image" class="prescription-thumbnail">
+          <img [src]="prescription.image" alt="Prescription Thumbnail">
+        </div>
+      </div>
+      <div class="prescription-body">
+        <div class="doctor-info">
+          <strong>Doctor:</strong> {{ prescription.doctorName }}
+        </div>
+        <div class="prescription-notes">
+          <strong>Notes:</strong> 
+          {{ prescription.notes | slice:0:100 }}{{ prescription.notes.length > 100 ? '...' : '' }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prescription Details Modal -->
+  <div *ngIf="selectedPrescription" class="prescription-modal" (click)="closePrescriptionDetails()">
+    <div class="prescription-modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Prescription Details</h2>
+        <button class="close-button" (click)="closePrescriptionDetails()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="prescription-details">
+          <div class="detail-section">
+            <h3>Patient Information</h3>
+            <p><strong>Name:</strong> {{ selectedPrescription.patientsName }}</p>
+            <p><strong>Consultation Date:</strong> {{ selectedPrescription.date | date:'fullDate' }}</p>
+          </div>
+          
+          <div class="detail-section">
+            <h3>Doctor Information</h3>
+            <p><strong>Name:</strong> {{ selectedPrescription.doctorName }}</p>
+          </div>
+          
+          <div class="detail-section">
+            <h3>Prescription Notes</h3>
+            <p>{{ selectedPrescription.notes }}</p>
+          </div>
+          
+          <div *ngIf=" selectedPrescription.image" class="detail-section prescription-full-image">
+            <h3>Prescription Image</h3>
+            <img 
+            *ngIf="selectedPrescription.image" 
+            [src]="selectedPrescription.image" 
+            alt="selectedPrescription Thumbnail"
+            onerror="this.style.display='none'"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

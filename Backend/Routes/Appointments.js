@@ -23,5 +23,39 @@ router.post('/appointments',async(req,res)=>{
         
     }
 })
+//Getting the appointments
+
+router.get('/appointments',async(req,res)=>{
+    try {
+        const appointments=await Appointment.find();
+        res.json(appointments);
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: 'Server error'})
+        
+    }
+})
+
+//approving the appointment
+
+router.post('/approve', (req, res) => {
+    const { id, status } = req.body;
+    Appointment.updateOne({ _id: id }, { status })
+      .then(() => res.sendStatus(200))
+      .catch((err) => res.status(500).json({ error: 'Failed to approve appointment' }));
+  });
+  
+
+
+//rescheduling the appointment
+
+router.post('/reschedule', (req, res) => {
+    const { id, newDate } = req.body;
+    Appointment.updateOne({ _id: id }, { date: newDate })
+      .then(() => res.sendStatus(200))
+      .catch((err) => res.status(500).json({ error: 'Failed to reschedule appointment' }));
+  });
+  
 
 export {router as appointmentRouter}

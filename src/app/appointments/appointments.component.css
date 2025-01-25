@@ -1,0 +1,66 @@
+.appointments-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.appointment-card {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-details {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.appointment-details h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.appointment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.approve-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.approve-button:hover {
+  background-color: #218838;
+}
+
+.reschedule-button {
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reschedule-button:hover {
+  background-color: #ff8c00;
+}
+
+.no-appointments {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}

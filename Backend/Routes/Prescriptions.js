@@ -48,5 +48,22 @@ router.post('/prescriptions',upload.single('image'),async(req,res)=>{
         
     }
 })
+//Getting the Prescriptions
 
+router.get('/prescriptions', async (req, res) => {
+    try {
+        const prescriptions = await Prescriptions.find();
+        // Map prescriptions to include correct image path
+        const prescriptionsWithFullImagePath = prescriptions.map(prescription => ({
+            ...prescription.toObject(),
+            image: prescription.image 
+                ? `http://localhost:3000/uploads/${prescription.image.split('uploads\\').pop()}` 
+                : null
+        }));
+        res.json(prescriptionsWithFullImagePath);
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({error: 'Server Error'})
+    }
+})
 export {router as PrescriptionRouter}

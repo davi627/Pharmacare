@@ -12,6 +12,8 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { CustomerPageComponent } from './customer-page/customer-page.component';
 import { PharmacistPageComponent } from './pharmacist-page/pharmacist-page.component';
 import { ProductsComponent } from './products/products.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ProductsComponent } from './products/products.component';
     AdminPageComponent,
     CustomerPageComponent,
     PharmacistPageComponent,
-    ProductsComponent
+    ProductsComponent,
+    AppointmentsComponent,
+    PrescriptionsComponent
   ],
   imports: [
     BrowserModule,

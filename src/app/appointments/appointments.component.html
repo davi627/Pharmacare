@@ -1,0 +1,29 @@
+<div class="appointments-container">
+  <div *ngIf="appointments.length === 0" class="no-appointments">
+    No appointments available
+  </div>
+  
+  <div *ngFor="let appointment of appointments" class="appointment-card">
+    <div class="appointment-details">
+      <h3>{{ appointment.name }}</h3>
+      <p>Age: {{ appointment.age }}</p>
+      <p>Gender: {{ appointment.gender }}</p>
+      <p>Date: {{ appointment.date }}</p>
+      <p>Reason: {{ appointment.reason }}</p>
+    </div>
+    <div class="appointment-actions">
+      <button 
+        class="approve-button" 
+        (click)="approveAppointment(appointment._id)"
+      >
+        Approve
+      </button>
+      <button 
+        class="reschedule-button" 
+        (click)="rescheduleAppointment(appointment._id)"
+      >
+        Reschedule
+      </button>
+    </div>
+  </div>
+</div>
