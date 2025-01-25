@@ -8,6 +8,9 @@ interface Appointment {
   gender: string;
   date: string;
   reason: string;
+  email: string;
+  status?: string;
+  isRescheduled?: boolean;
 }
 
 @Component({
@@ -17,6 +20,7 @@ interface Appointment {
 })
 export class AppointmentsComponent implements OnInit {
   appointments: Appointment[] = [];
+  newDate: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -28,6 +32,18 @@ export class AppointmentsComponent implements OnInit {
     this.http.get<Appointment[]>('http://localhost:3000/appointments/appointments').subscribe({
       next: (data) => {
         this.appointments = data;
+
+        // Retrieve saved states from localStorage
+        const savedStates = JSON.parse(localStorage.getItem('appointmentsState') || '{}');
+
+        // Apply saved states to the appointments
+        this.appointments.forEach((appointment) => {
+          if (appointment._id && savedStates[appointment._id]) {
+            const savedState = savedStates[appointment._id];
+            if (savedState.status) appointment.status = savedState.status;
+            if (savedState.isRescheduled !== undefined) appointment.isRescheduled = savedState.isRescheduled;
+          }
+        });
       },
       error: (error) => {
         console.error('Error fetching appointments', error);
@@ -36,11 +52,53 @@ export class AppointmentsComponent implements OnInit {
   }
 
   approveAppointment(appointmentId: string | undefined) {
-    // Implement approve logic here
-    console.log('Approving appointment:', appointmentId);
+    if (!appointmentId) return;
+
+    // Update appointment status
+    const appointment = this.appointments.find(app => app._id === appointmentId);
+    if (appointment) {
+      appointment.status = 'approved';
+      // Save state to localStorage
+      this.saveAppointmentState(appointmentId, { status: 'approved' });
+    }
   }
+
   rescheduleAppointment(appointmentId: string | undefined) {
-    // Implement reschedule logic here
-    console.log('Rescheduling appointment:', appointmentId);
+    if (!appointmentId || !this.newDate) return;
+
+    // Update appointment date and status
+    const appointment = this.appointments.find(app => app._id === appointmentId);
+    if (appointment) {
+      appointment.date = this.newDate;
+      appointment.isRescheduled = true;
+      // Save state to localStorage
+      this.saveAppointmentState(appointmentId, { isRescheduled: true, date: this.newDate });
+    }
+
+    this.newDate = ''; 
+  }
+
+  isApproved(appointment: Appointment): boolean {
+    return appointment.status === 'approved';
+  }
+
+  isRescheduled(appointment: Appointment): boolean {
+    return appointment.isRescheduled === true;
+  }
+
+  isRescheduleButton(appointment: Appointment): boolean {
+    return !this.isRescheduled(appointment);
+  }
+
+  saveAppointmentState(appointmentId: string, state: any) {
+    // Retrieve the current saved states from localStorage
+    const savedStates = JSON.parse(localStorage.getItem('appointmentsState') || '{}');
+    savedStates[appointmentId] = { ...savedStates[appointmentId], ...state };
+    // Save the updated states back to localStorage
+    localStorage.setItem('appointmentsState', JSON.stringify(savedStates));
+  }
+
+  onDateChange(event: any) {
+    this.newDate = event.target.value;
   }
 }

@@ -99,6 +99,7 @@ export class ProductsComponent implements OnInit {
 
   addToCart(product: any): void {
     this.cartService.addToCart(product);
+    alert('Added to cart')
     this.updateCartSummary();
   }
 

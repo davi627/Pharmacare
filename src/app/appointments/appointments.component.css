@@ -64,3 +64,10 @@
   color: #666;
   padding: 20px;
 }
+.reschedule-container {
+  margin-top: 10px;
+}
+
+.reschedule-container input {
+  margin-right: 10px;
+}

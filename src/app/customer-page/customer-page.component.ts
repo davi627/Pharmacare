@@ -19,6 +19,7 @@ export class CustomerPageComponent {
     gender: '',
     date: '',
     reason: '',
+    email:''
   };
 
   prescription = {
@@ -56,6 +57,7 @@ export class CustomerPageComponent {
       gender: '',
       date: '',
       reason: '',
+      email: '',
     };
   }
 
@@ -111,19 +113,7 @@ export class CustomerPageComponent {
     this.selectedFile = null; 
   }
 
-  sendMessage(): void {
-    if (this.newMessage.trim()) {
-      this.messages.push({ type: 'sent', text: this.newMessage });
-      this.newMessage = '';
-
-      setTimeout(() => {
-        this.messages.push({
-          type: 'received',
-          text: 'This is a response from the system.',
-        });
-      }, 1000);
-    }
-  }
+  
 
   showForm(formName: string): void {
     this.currentForm = formName;

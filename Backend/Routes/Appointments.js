@@ -5,14 +5,15 @@ const router = express.Router()
 
 // post all appointments
 router.post('/appointments',async(req,res)=>{
-    const {name,age,gender,date,reason}=req.body;
+    const {name,age,gender,date,reason,email}=req.body;
     try {
         const appointment=new Appointment({
             name,
             age,
             gender,
             date,
-            reason
+            reason,
+            email
         })
         await appointment.save();
         res.status(201).json(appointment);
@@ -42,9 +43,17 @@ router.get('/appointments',async(req,res)=>{
 router.post('/approve', (req, res) => {
     const { id, status } = req.body;
     Appointment.updateOne({ _id: id }, { status })
-      .then(() => res.sendStatus(200))
-      .catch((err) => res.status(500).json({ error: 'Failed to approve appointment' }));
-  });
+        .then(() => {
+            // Send the updated appointment back as response
+            Appointment.findById(id)
+                .then(appointment => res.status(200).json(appointment))
+                .catch(err => res.status(500).json({ error: 'Failed to fetch updated appointment' }));
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: 'Failed to approve appointment' });
+        });
+});
   
 
 
@@ -53,9 +62,16 @@ router.post('/approve', (req, res) => {
 router.post('/reschedule', (req, res) => {
     const { id, newDate } = req.body;
     Appointment.updateOne({ _id: id }, { date: newDate })
-      .then(() => res.sendStatus(200))
-      .catch((err) => res.status(500).json({ error: 'Failed to reschedule appointment' }));
-  });
-  
+        .then(() => {
+            
+            Appointment.findById(id)
+                .then(appointment => res.status(200).json(appointment))
+                .catch(err => res.status(500).json({ error: 'Failed to fetch updated appointment' }));
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: 'Failed to reschedule appointment' });
+        });
+});
 
 export {router as appointmentRouter}

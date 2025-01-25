@@ -7,7 +7,6 @@
         <ul>
           <li (click)="showForm('booking')">Book Appointments</li>
           <li (click)="showForm('upload')">Upload Prescriptions</li>
-          <li (click)="showForm('appointments')">Appointments</li>
         </ul>
         <div class="settings-icon">
           <i class="fas fa-cog"></i>
@@ -35,6 +34,9 @@
     
         <label for="reason">Reason:</label>
         <textarea id="reason" [(ngModel)]="appointment.reason" name="reason" rows="4" required></textarea>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="appointment.email" name="email" required />
     
         <button type="submit">Submit</button>
       </form>
@@ -68,8 +70,6 @@
     </div>
 
   
-    <div *ngIf="currentForm === 'appointments'" id="appointments-section">
-      <p>Appointments Section Content</p>
-    </div>
+
   </div>
   

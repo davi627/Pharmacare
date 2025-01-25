@@ -21,6 +21,10 @@ const appointmentShema =new mongoose.Schema({
     reason:{
         type:String,
         required:true
+    },
+    email:{
+        type:String,
+        required:true
     }
 
 })

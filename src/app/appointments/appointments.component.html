@@ -15,14 +15,31 @@
       <button 
         class="approve-button" 
         (click)="approveAppointment(appointment._id)"
+        [disabled]="isApproved(appointment)"
       >
-        Approve
+        {{ isApproved(appointment) ? 'Approved' : 'Approve' }}
       </button>
-      <button 
-        class="reschedule-button" 
-        (click)="rescheduleAppointment(appointment._id)"
-      >
-        Reschedule
+
+      <!-- Show date input for rescheduling -->
+      <div *ngIf="isRescheduleButton(appointment)">
+        <input 
+          type="date" 
+          [(ngModel)]="newDate" 
+          (change)="onDateChange($event)" 
+          placeholder="Select new date"
+        />
+        <button 
+          class="reschedule-button" 
+          (click)="rescheduleAppointment(appointment._id)" 
+          [disabled]="!newDate"
+        >
+          Reschedule
+        </button>
+      </div>
+
+      <!-- Display the rescheduled message if it's rescheduled -->
+      <button *ngIf="isRescheduled(appointment)" class="rescheduled-button" disabled>
+        Rescheduled
       </button>
     </div>
   </div>
