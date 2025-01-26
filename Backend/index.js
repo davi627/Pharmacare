@@ -8,6 +8,7 @@ import { mpesaRoutes } from './Routes/Mpesa.js'
 import { transactionRoutes } from './Routes/Transaction.js'
 import { appointmentRouter } from './Routes/Appointments.js'
 import { PrescriptionRouter } from './Routes/Prescriptions.js'
+import { OrderRouter } from './Routes/RequestOrder.js'
 
 dotenv.config()
 
@@ -32,6 +33,7 @@ app.use('/mpesa', mpesaRoutes)
 app.use('/transactions', transactionRoutes);
 app.use('/appointments',appointmentRouter)
 app.use('/prescriptions',PrescriptionRouter)
+app.use('/orders',OrderRouter)
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log('connected to MONGODB'))

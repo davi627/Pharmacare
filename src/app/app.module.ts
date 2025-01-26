@@ -16,6 +16,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { ReportsComponent } from './reports/reports.component';
 import { NgChartsModule } from 'ng2-charts';
+import { RequestProductComponent } from './request-product/request-product.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NgChartsModule } from 'ng2-charts';
     AppointmentsComponent,
     PrescriptionsComponent,
     ReportsComponent,
+    RequestProductComponent,
   ],
   imports: [
     BrowserModule,

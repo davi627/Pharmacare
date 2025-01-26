@@ -27,6 +27,9 @@ export class PharmacistPageComponent {
   navigateToReports(){
     this.router.navigateByUrl('/reports');
   }
+  navigateToRequestProducts(){
+    this.router.navigateByUrl('/request-product');
+  }
 
   approveAppointment(appointmentId: string | undefined) {
     if (!appointmentId) return;
