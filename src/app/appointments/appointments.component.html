@@ -1,8 +1,15 @@
 <div class="appointments-container">
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- No Appointments Message -->
   <div *ngIf="appointments.length === 0" class="no-appointments">
     No appointments available
   </div>
   
+  <!-- Appointments List -->
   <div *ngFor="let appointment of appointments" class="appointment-card">
     <div class="appointment-details">
       <h3>{{ appointment.name }}</h3>
@@ -10,8 +17,11 @@
       <p>Gender: {{ appointment.gender }}</p>
       <p>Date: {{ appointment.date }}</p>
       <p>Reason: {{ appointment.reason }}</p>
+      <p>Email: {{ appointment.email }}</p>
     </div>
+
     <div class="appointment-actions">
+      <!-- Approve Button -->
       <button 
         class="approve-button" 
         (click)="approveAppointment(appointment._id)"
@@ -20,7 +30,7 @@
         {{ isApproved(appointment) ? 'Approved' : 'Approve' }}
       </button>
 
-      <!-- Show date input for rescheduling -->
+      <!-- Reschedule Input and Button -->
       <div *ngIf="isRescheduleButton(appointment)">
         <input 
           type="date" 
@@ -37,7 +47,7 @@
         </button>
       </div>
 
-      <!-- Display the rescheduled message if it's rescheduled -->
+      <!-- Rescheduled Status Button -->
       <button *ngIf="isRescheduled(appointment)" class="rescheduled-button" disabled>
         Rescheduled
       </button>

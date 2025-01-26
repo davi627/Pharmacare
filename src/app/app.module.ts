@@ -14,6 +14,8 @@ import { PharmacistPageComponent } from './pharmacist-page/pharmacist-page.compo
 import { ProductsComponent } from './products/products.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { ReportsComponent } from './reports/reports.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -26,15 +28,17 @@ import { PrescriptionsComponent } from './prescriptions/prescriptions.component'
     PharmacistPageComponent,
     ProductsComponent,
     AppointmentsComponent,
-    PrescriptionsComponent
+    PrescriptionsComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

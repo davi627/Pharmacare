@@ -1,0 +1,105 @@
+.analytics-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.chart-section {
+  width: 45%;
+  margin: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s ease;
+}
+
+.chart-section:hover {
+  transform: scale(1.02);
+}
+
+.chart-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.reports-table {
+  width: 100%;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  overflow-x: auto;
+}
+
+.reports-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.reports-table table th,
+.reports-table table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.reports-table table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.reports-table table td {
+  background-color: #fff;
+}
+
+.reports-table table tr:hover {
+  background-color: #f1f1f1;
+}
+
+@media (max-width: 1024px) {
+  .chart-section {
+    width: 48%;
+  }
+
+  .reports-table {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-section {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .reports-table {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-section {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .chart-section h2 {
+    font-size: 1em;
+  }
+
+  .reports-table {
+    padding: 10px;
+  }
+
+  .reports-table table th,
+  .reports-table table td {
+    padding: 8px;
+  }
+}

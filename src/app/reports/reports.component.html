@@ -1,0 +1,59 @@
+<div class="analytics-container">
+  <div class="chart-section">
+      <h2>Payment Method Comparison</h2>
+      <canvas baseChart 
+          [data]="paymentMethodChartData"
+          [options]="paymentMethodChartOptions"
+          [type]="paymentMethodChartType">
+      </canvas>
+  </div>
+
+  <div class="chart-section">
+      <h2>Weekly Sales</h2>
+      <canvas baseChart 
+          [data]="weeklySalesChartData"
+          [options]="weeklySalesChartOptions"
+          [type]="weeklySalesChartType">
+      </canvas>
+  </div>
+
+  <div class="chart-section">
+      <h2>Monthly Sales</h2>
+      <canvas baseChart 
+          [data]="monthlySalesChartData"
+          [options]="monthlySalesChartOptions"
+          [type]="monthlySalesChartType">
+      </canvas>
+  </div>
+
+  <div class="chart-section">
+      <h2>Yearly Sales</h2>
+      <canvas baseChart 
+          [data]="yearlySalesChartData"
+          [options]="yearlySalesChartOptions"
+          [type]="yearlySalesChartType">
+      </canvas>
+  </div>
+
+  <div class="reports-table">
+      <h2>Transactions</h2>
+      <table>
+          <thead>
+              <tr>
+                  <th>Method</th>
+                  <th>Amount</th>
+                  <th>Payment Details</th>
+                  <th>Date</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let transaction of transactions">
+                  <td>{{ transaction.method }}</td>
+                  <td>{{ transaction.amount }}</td>
+                  <td>{{ transaction.paymentDetails }}</td>
+                  <td>{{ transaction.timestamp | date: 'long' }}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
