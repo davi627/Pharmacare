@@ -17,6 +17,7 @@ import { PrescriptionsComponent } from './prescriptions/prescriptions.component'
 import { ReportsComponent } from './reports/reports.component';
 import { NgChartsModule } from 'ng2-charts';
 import { RequestProductComponent } from './request-product/request-product.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { RequestProductComponent } from './request-product/request-product.compo
     FormsModule,
     HttpClientModule,
     NgChartsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
